@@ -88,6 +88,37 @@
                 width: 100%;
             }
         }
+        /* Button and link animations */
+        .animated-button {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .animated-button:hover {
+            background-color: #f87171; /* Lighter red */
+            transform: scale(1.05);
+        }
+        .animated-link {
+            position: relative;
+            display: inline-block;
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .animated-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+        .animated-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
@@ -102,12 +133,12 @@
             </div>
             <ul class="flex space-x-6 nav-links">
                 <!-- Navigation links -->
-                <li><a href="#about" class="text-white hover:text-red-300 transition duration-300">About Me</a></li>
-                <li><a href="#skills" class="text-white hover:text-red-300 transition duration-300">Skills</a></li>
-                <li><a href="#experience" class="text-white hover:text-red-300 transition duration-300">Experience</a></li>
-                <li><a href="#projects" class="text-white hover:text-red-300 transition duration-300">Projects</a></li>
-                <li><a href="#testimonials" class="text-white hover:text-red-300 transition duration-300">Testimonials</a></li>
-                <li><a href="#contact" class="text-white hover:text-red-300 transition duration-300">Contact</a></li>
+                <li><a href="#about" class="text-white hover:text-red-300 transition duration-300 animated-link">About Me</a></li>
+                <li><a href="#skills" class="text-white hover:text-red-300 transition duration-300 animated-link">Skills</a></li>
+                <li><a href="#experience" class="text-white hover:text-red-300 transition duration-300 animated-link">Experience</a></li>
+                <li><a href="#projects" class="text-white hover:text-red-300 transition duration-300 animated-link">Projects</a></li>
+                <li><a href="#testimonials" class="text-white hover:text-red-300 transition duration-300 animated-link">Testimonials</a></li>
+                <li><a href="#contact" class="text-white hover:text-red-300 transition duration-300 animated-link">Contact</a></li>
             </ul>
         </nav>
         <div class="container mx-auto p-6 text-center">
@@ -139,40 +170,40 @@
             <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Skills</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Individual skill items -->
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">PHP</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">MySQL</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">RESTful API</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">Docker</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">Git</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">HTML & CSS</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">JavaScript</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">Tailwind CSS</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">ServiceNow Developer</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">GLPI (ITSM Tool)</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">Azure Container Apps</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
                     <p class="text-xl font-semibold text-center text-red-700">Bash Scripting</p>
                 </div>
             </div>
