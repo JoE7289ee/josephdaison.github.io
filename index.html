@@ -47,6 +47,35 @@
                 opacity: 1;
             }
         }
+        /* Hamburger menu styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                text-align: center;
+                padding: 10px 0;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
@@ -54,7 +83,12 @@
     <header class="bg-red-700 shadow-lg fade-in">
         <nav class="container mx-auto p-6 flex justify-between items-center">
             <div class="text-2xl font-bold text-white">Joseph Daison</div>
-            <ul class="flex space-x-6">
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="flex space-x-6 nav-links">
                 <!-- Navigation links -->
                 <li><a href="#about" class="text-white hover:text-red-300 transition duration-300">About Me</a></li>
                 <li><a href="#skills" class="text-white hover:text-red-300 transition duration-300">Skills</a></li>
@@ -187,5 +221,11 @@
     <footer class="bg-red-700 shadow-lg p-6 text-center fade-in">
         <p class="text-white">&copy; 2024 Joseph Daison</p>
     </footer>
+    <script>
+        // Toggle navigation menu on mobile
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
