@@ -119,9 +119,67 @@
             transform: scaleX(1);
             transform-origin: bottom left;
         }
+        /* Testimonial scroll styles */
+        .testimonial-container {
+            position: relative;
+            overflow: hidden;
+            height: 150px; /* Adjust height as needed */
+            background-color: #f3f4f6; /* Light gray background */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .testimonial {
+            position: absolute;
+            width: calc(100% - 40px); /* Adjust width to account for padding */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            padding: 10px; /* Add padding inside each testimonial */
+            box-sizing: border-box;
+        }
+        .testimonial.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Jiggle animation */
+        @keyframes jiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(3deg);
+            }
+            50% {
+                transform: rotate(-3deg);
+            }
+            75% {
+                transform: rotate(3deg);
+            }
+        }
+        .jiggle {
+            display: inline-block;
+            animation: jiggle 0.5s ease-in-out;
+        }
+        /* Glow effect */
+        .glow {
+            color: #ffcccc; /* Light red color */
+            text-shadow: 0 0 5px #ffcccc, 0 0 10px #ffcccc, 0 0 15px #ffcccc, 0 0 20px #ff0000, 0 0 25px #ff0000, 0 0 30px #ff0000, 0 0 35px #ff0000;
+            animation: glow 5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #ffcccc, 0 0 10px #ffcccc, 0 0 15px #ffcccc, 0 0 20px #ff0000, 0 0 25px #ff0000, 0 0 30px #ff0000, 0 0 35px #ff0000;
+            }
+            to {
+                text-shadow: 0 0 10px #ffcccc, 0 0 20px #ffcccc, 0 0 30px #ffcccc, 0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gray-100 text-gray-900"> 
     <!-- Header section with navigation -->
     <header class="bg-red-700 shadow-lg fade-in">
         <nav class="container mx-auto p-6 flex justify-between items-center relative">
@@ -132,7 +190,7 @@
                 <div></div>
             </div>
             <ul class="flex space-x-6 nav-links">
-                <!-- Navigation links -->
+                <!-- Navigation links --> 
                 <li><a href="#about" class="text-white hover:text-red-300 transition duration-300 animated-link">About Me</a></li>
                 <li><a href="#skills" class="text-white hover:text-red-300 transition duration-300 animated-link">Skills</a></li>
                 <li><a href="#experience" class="text-white hover:text-red-300 transition duration-300 animated-link">Experience</a></li>
@@ -143,8 +201,8 @@
         </nav>
         <div class="container mx-auto p-6 text-center">
             <!-- Main header content -->
-            <h1 class="text-5xl font-bold text-white fade-in">Welcome to My World</h1>
-            <p class="text-xl text-red-200 mt-4 fade-in">I Create To Kill Boredom</p>
+            <h1 class="text-5xl font-bold text-white" id="welcome-text">Welcome to My World</h1>
+            <h2 class="text-xl text-red-200 mt-4 glow">I Create To Kill Boredom</h2>
         </div>
     </header>
     <!-- Main content area -->
@@ -237,16 +295,16 @@
         <!-- Testimonials section -->
         <section id="testimonials" class="my-12 drop-down">
             <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Testimonials</h2>
-            <div class="space-y-6">
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+            <div class="testimonial-container">
+                <div class="testimonial active">
                     <p class="text-lg text-gray-700">"PENDING"</p>
                     <p class="text-right text-gray-700">- Srusti</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <div class="testimonial">
                     <p class="text-lg text-gray-700">"PENDING"</p>
                     <p class="text-right text-gray-700">- Jahanvi</p>
                 </div>
-                <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <div class="testimonial">
                     <p class="text-lg text-gray-700">"PENDING"</p>
                     <p class="text-right text-gray-700">- Mathew</p>
                 </div>
@@ -257,7 +315,7 @@
             <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Contact</h2>
             <p class="text-lg text-gray-700 leading-relaxed text-center">Feel free to reach out to me at:</p>
             <p class="text-lg text-gray-700 leading-relaxed text-center mt-4">Phone: 7012929409</p>
-            <p class="text-lg text-gray-700 leading-relaxed text-center">Email: joedai555@gmail.com</p>
+            <p class="text-lg text-gray-700 leading-relaxed text-center">Email: <a href="mailto:joedai555@gmail.com" class="text-red-700 hover:text-red-500 transition duration-300">joedai555@gmail.com</a></p>
         </section>
     </main>
     <!-- Footer section -->
@@ -269,6 +327,30 @@
         document.querySelector('.hamburger').addEventListener('click', () => {
             document.querySelector('.nav-links').classList.toggle('active');
         });
+
+        // Auto-scroll testimonials
+        const testimonials = document.querySelectorAll('.testimonial');
+        let currentTestimonial = 0;
+
+        function showNextTestimonial() {
+            testimonials[currentTestimonial].classList.remove('active');
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            testimonials[currentTestimonial].classList.add('active');
+        }
+
+        setInterval(showNextTestimonial, 5000); // Change testimonial every 5 seconds
+
+        // Jiggle animation for welcome text
+        const welcomeText = document.getElementById('welcome-text');
+
+        function jiggleText() {
+            welcomeText.classList.add('jiggle');
+            setTimeout(() => {
+                welcomeText.classList.remove('jiggle');
+            }, 500);
+        }
+
+        setInterval(jiggleText, 3000); // Jiggle every 3 seconds
     </script>
 </body>
 </html>
