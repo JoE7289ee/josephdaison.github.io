@@ -1,38 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadata and links to external resources -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joseph Daison's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Slide-in animation */
+        .slide-in {
+            animation: slideIn 2s ease-in-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        /* Drop-down animation */
+        .drop-down {
+            animation: dropDown 2s ease-in-out;
+        }
+        @keyframes dropDown {
+            from {
+                transform: translateY(-50%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        /* Hamburger menu styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px 0;
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: #b91c1c; /* Same as header background */
+                z-index: 10;
+                overflow: hidden;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                text-align: center;
+                padding: 10px 0;
+                margin: 0;
+            }
+            .nav-links a {
+                padding: 10px 0;
+                display: block;
+                width: 100%;
+            }
+        }
+        /* Button and link animations */
+        .animated-button {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .animated-button:hover {
+            background-color: #f87171; /* Lighter red */
+            transform: scale(1.05);
+        }
+        .animated-link {
+            position: relative;
+            display: inline-block;
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .animated-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+        .animated-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        /* Testimonial scroll styles */
+        .testimonial-container {
+            position: relative;
+            overflow: hidden;
+            height: 150px; /* Adjust height as needed */
+            background-color: #f3f4f6; /* Light gray background */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .testimonial {
+            position: absolute;
+            width: calc(100% - 40px); /* Adjust width to account for padding */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            padding: 10px; /* Add padding inside each testimonial */
+            box-sizing: border-box;
+        }
+        .testimonial.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Jiggle animation */
+        @keyframes jiggle {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(3deg);
+            }
+            50% {
+                transform: rotate(-3deg);
+            }
+            75% {
+                transform: rotate(3deg);
+            }
+        }
+        .jiggle {
+            display: inline-block;
+            animation: jiggle 0.5s ease-in-out;
+        }
+        /* Glow effect */
+        .glow {
+            color: #ffcccc; /* Light red color */
+            text-shadow: 0 0 5px #ffcccc, 0 0 10px #ffcccc, 0 0 15px #ffcccc, 0 0 20px #ff0000, 0 0 25px #ff0000, 0 0 30px #ff0000, 0 0 35px #ff0000;
+            animation: glow 5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #ffcccc, 0 0 10px #ffcccc, 0 0 15px #ffcccc, 0 0 20px #ff0000, 0 0 25px #ff0000, 0 0 30px #ff0000, 0 0 35px #ff0000;
+            }
+            to {
+                text-shadow: 0 0 10px #ffcccc, 0 0 20px #ffcccc, 0 0 30px #ffcccc, 0 0 40px #ff0000, 0 0 50px #ff0000, 0 0 60px #ff0000, 0 0 70px #ff0000;
+            }
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+<body class="bg-gray-100 text-gray-900"> 
+    <!-- Header section with navigation -->
+    <header class="bg-red-700 shadow-lg fade-in">
+        <nav class="container mx-auto p-6 flex justify-between items-center relative">
+            <div class="text-2xl font-bold text-white">Joseph Daison</div>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="flex space-x-6 nav-links">
+                <!-- Navigation links --> 
+                <li><a href="#about" class="text-white hover:text-red-300 transition duration-300 animated-link">About Me</a></li>
+                <li><a href="#skills" class="text-white hover:text-red-300 transition duration-300 animated-link">Skills</a></li>
+                <li><a href="#experience" class="text-white hover:text-red-300 transition duration-300 animated-link">Experience</a></li>
+                <li><a href="#projects" class="text-white hover:text-red-300 transition duration-300 animated-link">Projects</a></li>
+                <li><a href="#testimonials" class="text-white hover:text-red-300 transition duration-300 animated-link">Testimonials</a></li>
+                <li><a href="#contact" class="text-white hover:text-red-300 transition duration-300 animated-link">Contact</a></li>
             </ul>
         </nav>
-        <h1>Welcome to My Portfolio</h1>
+        <div class="container mx-auto p-6 text-center">
+            <!-- Main header content -->
+            <h1 class="text-5xl font-bold text-white" id="welcome-text">Welcome to My World</h1>
+            <h2 class="text-xl text-red-200 mt-4 glow">I Create To Kill Boredom</h2>
+        </div>
     </header>
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
-            <p>Introduce yourself here.</p>
+    <!-- Main content area -->
+    <main class="container mx-auto p-6 bg-white rounded-lg shadow-lg fade-in">
+        <!-- About Me section -->
+        <section id="about" class="my-12 drop-down">
+            <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">About Me</h2>
+            <p class="text-lg text-gray-700 leading-relaxed text-center">
+                Hello! I’m <strong>Joseph Daison</strong>, a tech enthusiast and lifelong learner who believes that the world of technology is a vast ocean, one I’m eager to explore and understand, one drop at a time. I approach each day with the mindset of a beginner, open to new knowledge, insights, and experiences that deepen my understanding and broaden my perspective.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed text-center">
+                Driven by curiosity, I find immense joy in tackling challenges, whether it's diving into the latest tech trends or refining my skills through hands-on projects. For me, every project is an opportunity to grow, every line of code a chance to get one step closer to mastering my craft.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed text-center">
+                Outside of tech, I’m passionate about <strong>film and movies</strong> – an art form that inspires me with its storytelling, creativity, and ability to capture the complexity of human emotions. Whether I’m watching a classic film or exploring a new release, I find endless fascination in the worlds that cinema creates.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed text-center">
+                Thank you for visiting my portfolio. Feel free to explore my work, and don’t hesitate to reach out – I’m always excited to connect with fellow enthusiasts and professionals on this journey of discovery.
+            </p>
         </section>
-        <section id="projects">
-            <h2>Projects</h2>
-            <p>Showcase your projects here.</p>
+        <!-- Skills section -->
+        <section id="skills" class="my-12 drop-down">
+            <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Skills</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Individual skill items -->
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">PHP</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">MySQL</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">RESTful API</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">Docker</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">Git</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">HTML & CSS</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">JavaScript</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">Tailwind CSS</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">ServiceNow Developer</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">GLPI (ITSM Tool)</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">Azure Container Apps</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-red-100 animated-button">
+                    <p class="text-xl font-semibold text-center text-red-700">Bash Scripting</p>
+                </div>
+            </div>
         </section>
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Provide your contact information here.</p>
+        <!-- Experience section -->
+        <section id="experience" class="my-12 drop-down">
+            <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Experience</h2>
+            <div class="space-y-6">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-red-700">Associate Techinical Engineer</h3>
+                    <p class="text-lg text-gray-700">Kyndryl</p>
+                    <p class="text-gray-700">I am a developer specializing in IT Service Management (ITSM) tools, with a primary focus on platforms like ServiceNow and GLPI, where I integrate, customize, and optimize solutions to streamline IT workflows and enhance service delivery.</p>
+                </div>
+            </div>
+        </section>
+        <!-- Projects section -->
+        <section id="projects" class="my-12 drop-down">
+            <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Projects</h2>
+            <div class="space-y-6">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-red-700">ServiceNow</h3>
+                    <p class="text-lg text-gray-700">Developed and customized various modules within the ServiceNow platform to enhance IT Service Management (ITSM) processes. Implemented workflows, automated tasks, and integrated third-party tools to streamline operations and improve service delivery.</p>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-2 text-red-700">GLPI</h3>
+                    <p class="text-lg text-gray-700">Worked on the GLPI (Gestionnaire Libre de Parc Informatique) platform to manage IT assets and services. Customized the tool to fit organizational needs, integrated it with other systems, and developed plugins to extend its functionality.</p>
+                </div>
+                <!-- Add more projects as needed -->
+            </div>
+        </section>
+        <!-- Testimonials section -->
+        <section id="testimonials" class="my-12 drop-down">
+            <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Testimonials</h2>
+            <div class="testimonial-container">
+                <div class="testimonial active">
+                    <p class="text-lg text-gray-700">"PENDING"</p>
+                    <p class="text-right text-gray-700">- Srusti</p>
+                </div>
+                <div class="testimonial">
+                    <p class="text-lg text-gray-700">"PENDING"</p>
+                    <p class="text-right text-gray-700">- Jahanvi</p>
+                </div>
+                <div class="testimonial">
+                    <p class="text-lg text-gray-700">"PENDING"</p>
+                    <p class="text-right text-gray-700">- Mathew</p>
+                </div>
+            </div>
+        </section>
+        <!-- Contact section -->
+        <section id="contact" class="my-12 drop-down">
+            <h2 class="text-3xl font-semibold mb-6 text-center text-red-700">Contact</h2>
+            <p class="text-lg text-gray-700 leading-relaxed text-center">Feel free to reach out to me at:</p>
+            <p class="text-lg text-gray-700 leading-relaxed text-center mt-4">Phone: 7012929409</p>
+            <p class="text-lg text-gray-700 leading-relaxed text-center">Email: <a href="mailto:joedai555@gmail.com" class="text-red-700 hover:text-red-500 transition duration-300">joedai555@gmail.com</a></p>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 Joseph Daison</p>
+    <!-- Footer section -->
+    <footer class="bg-red-700 shadow-lg p-6 text-center fade-in">
+        <p class="text-white">&copy; 2024 Joseph Daison</p>
     </footer>
+    <script>
+        // Toggle navigation menu on mobile
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Auto-scroll testimonials
+        const testimonials = document.querySelectorAll('.testimonial');
+        let currentTestimonial = 0;
+
+        function showNextTestimonial() {
+            testimonials[currentTestimonial].classList.remove('active');
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            testimonials[currentTestimonial].classList.add('active');
+        }
+
+        setInterval(showNextTestimonial, 5000); // Change testimonial every 5 seconds
+
+        // Jiggle animation for welcome text
+        const welcomeText = document.getElementById('welcome-text');
+
+        function jiggleText() {
+            welcomeText.classList.add('jiggle');
+            setTimeout(() => {
+                welcomeText.classList.remove('jiggle');
+            }, 500);
+        }
+
+        setInterval(jiggleText, 3000); // Jiggle every 3 seconds
+    </script>
 </body>
 </html>
