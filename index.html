@@ -67,6 +67,12 @@
                 display: none;
                 flex-direction: column;
                 width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: #b91c1c; /* Same as header background */
+                z-index: 10;
+                overflow: hidden;
             }
             .nav-links.active {
                 display: flex;
@@ -74,6 +80,12 @@
             .nav-links li {
                 text-align: center;
                 padding: 10px 0;
+                margin: 0;
+            }
+            .nav-links a {
+                padding: 10px 0;
+                display: block;
+                width: 100%;
             }
         }
     </style>
@@ -81,7 +93,7 @@
 <body class="bg-gray-100 text-gray-900">
     <!-- Header section with navigation -->
     <header class="bg-red-700 shadow-lg fade-in">
-        <nav class="container mx-auto p-6 flex justify-between items-center">
+        <nav class="container mx-auto p-6 flex justify-between items-center relative">
             <div class="text-2xl font-bold text-white">Joseph Daison</div>
             <div class="hamburger">
                 <div></div>
