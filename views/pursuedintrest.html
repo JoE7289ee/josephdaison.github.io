@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pursued Interest</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #4a148c; /* Dark purple background */
+            color: #d1c4e9; /* Light purple text */
+        }
+        header, footer {
+            background-color: #6a1b9a; /* Solid dark purple background */
+        }
+        header h1, footer p {
+            color: #d1c4e9; /* Light purple text */
+        }
+        main {
+            background-color: #ffffff; /* White background for main content */
+            border: 1px solid #6a1b9a; /* Border to match header and footer */
+            display: flex;
+            flex-direction: column; /* Stack sections vertically */
+            gap: 1rem;
+            padding: 2%; /* Use percentage for padding */
+            align-items: center; /* Center content horizontally */
+        }
+        @media (min-width: 768px) {
+            main {
+                flex-direction: row; /* Side by side on larger screens */
+                justify-content: center; /* Center content horizontally */
+            }
+        }
+        .icon {
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+        .home-button {
+            display: inline-block;
+            background-color: #6a1b9a;
+            color: #d1c4e9;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .home-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.15);
+            transition: width 0.3s, height 0.3s, top 0.3s, left 0.3s;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .home-button:hover::before {
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: 50%;
+        }
+        .home-button:hover {
+            background-color: #4a148c;
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+        .quotes-container {
+            height: auto; /* Adjust height as needed */
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center; /* Center text horizontally */
+            background-color: #f3f4f6; /* Light gray background */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+            max-width: 800px; /* Limit the width of the container */
+            margin: 0 auto; /* Center the container */
+        }
+        .quotes-container p {
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            font-weight: bold;
+            color: #d1c4e9; /* Light purple color */
+            font-size: 2.25rem; /* Increase font size */
+            font-family: 'Dancing Script', cursive; /* Cursive handwriting font */
+        }
+        .quotes-container p.active {
+            opacity: 1;
+        }
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(106, 27, 154, 0.8), rgba(74, 20, 140, 0.8));
+            pointer-events: none; /* Allow clicks to pass through */
+            mix-blend-mode: overlay; /* Blend the gradient with the text */
+        }
+        .additional-content {
+            background-color: #ffffff; /* White background */
+            border: 1px solid #6a1b9a; /* Border to match header and footer */
+            padding: 3%; /* Increase padding */
+            margin-top: 1rem; /* Space above the new section */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            max-width: 90%; /* Increase the width of the container */
+            margin: 1rem auto; /* Center the container */
+        }
+        .additional-content p {
+            color: #4a148c; /* Dark purple text */
+            font-size: 1.25rem; /* Increase font size */
+            line-height: 1.8; /* Increase line height for readability */
+        }
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 200px;
+            background-color: #f3f4f6; /* Light gray background */
+            border: 1px solid #6a1b9a; /* Border to match header and footer */
+            margin: 1rem auto; /* Center the container */
+            overflow: hidden;
+        }
+        .dino {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 50px;
+            height: 50px;
+            background-color: #4a148c; /* Dark purple color */
+            border-radius: 5px;
+        }
+        .obstacle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 50px;
+            background-color: #6a1b9a; /* Dark purple color */
+        }
+    </style>
+</head>
+<body>
+    <header class="shadow-lg p-6 text-center">
+        <h1 class="text-3xl font-bold"><i class="fas fa-running icon"></i>Talent Is Pursued Interest</h1>
+        <a href="../index.html" class="mt-4 home-button">Home</a>
+    </header>
+    <main class="mx-auto p-6 rounded-lg shadow-lg">
+        <div class="quotes-container">
+            <p class="quote-text"></p>
+            <div class="gradient-overlay"></div>
+        </div>
+    </main>
+    <main class="mx-auto p-6 rounded-lg shadow-lg">
+              <p class="general-text">YOU DECIDE YOUR TALENT</p>
+              <div class="gradient-overlay"></div>
+        </div>
+    </main>
+    <section class="additional-content">
+        <p><strong>Talent is often seen as a gift, something innate and unchanging. But what if talent is less about what you’re born with and more about where you choose to focus your energy?</strong> When you pursue something with genuine interest, with curiosity that drives you to dig deeper, you naturally begin to develop a skill set that turns your passion into talent. Talent is simply the refined product of dedication, curiosity, and countless hours spent doing what you love. Each small step, each day of practice, compounds over time, turning a mere interest into a remarkable ability. The journey might be slow, but it’s filled with purpose—and with every step, you’re becoming the person you’ve always dreamed of being.</p><br>
+        <p><strong>Starting today, embrace the idea that results may not come overnight, and that’s okay.</strong> Talent built on true interest grows slowly, like a tree with deep roots, unwavering and resilient. Each day you invest, even in small ways, is a step forward. Even when progress feels invisible, trust that something powerful is taking shape beneath the surface. Just as an artist adds brushstrokes to a canvas or a musician repeats a scale, each effort adds a layer of mastery. It’s this consistent pursuit that transforms a spark of interest into a flame of talent, one that burns brighter over time and becomes impossible to ignore.</p><br>
+        <p><strong>The path to cultivating talent is a beautiful one because it’s not just about the end goal—it’s about becoming someone who truly cares, who values growth over immediate results, and who finds joy in the journey.</strong> Imagine looking back months from now, realizing how far you’ve come simply because you didn’t give up. Today, take that first step, and let tomorrow be a day of progress. Talent isn’t a destination; it’s a lifelong adventure, a testament to what happens when interest meets dedication, and when passion meets perseverance. Start today, and watch as your pursuit of talent transforms both you and the world around you, one day at a time.</p><br>
+    </section>
+    <div class="game-container" id="game-container">
+        <div class="dino" id="dino"></div>
+        <div class="obstacle" id="obstacle"></div>
+    </div>
+    <footer class="shadow-lg p-6 text-center">
+        <p>&copy; 2024 Joseph Daison - Powered by AI</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quotes = [
+                "The only place where success comes before work is in the dictionary. - Vidal Sassoon",
+                "Hard work beats talent when talent doesn’t work hard. - Tim Notke",
+                "Effort without talent is a depressing situation, but talent without effort is a tragedy. - Mike Ditka",
+                "Success is the sum of small efforts, repeated day in and day out. - Robert Collier",
+                "Genius is 1% inspiration and 99% perspiration. - Thomas Edison",
+                "Do not wait to strike till the iron is hot; but make it hot by striking. - William Butler Yeats",
+                "The difference between ordinary and extraordinary is that little extra. - Jimmy Johnson",
+                "Ambition is the path to success. Persistence is the vehicle you arrive in. - Bill Bradley",
+                "Great things are not done by impulse, but by a series of small things brought together. - Vincent van Gogh",
+                "Your talent determines what you can do. Your motivation determines how much you are willing to do. Your attitude determines how well you do it. - Lou Holtz",
+                "The only place where success comes before work is in the dictionary. - Vidal Sassoon",
+                "Hard work beats talent when talent doesn’t work hard. - Tim Notke",
+                "Effort without talent is a depressing situation, but talent without effort is a tragedy. - Mike Ditka",
+                "Success is the sum of small efforts, repeated day in and day out. - Robert Collier",
+                "Genius is 1% inspiration and 99% perspiration. - Thomas Edison",
+                "Do not wait to strike till the iron is hot; but make it hot by striking. - William Butler Yeats",
+                "The difference between ordinary and extraordinary is that little extra. - Jimmy Johnson",
+                "Ambition is the path to success. Persistence is the vehicle you arrive in. - Bill Bradley",
+                "Great things are not done by impulse, but by a series of small things brought together. - Vincent van Gogh",
+                "Your talent determines what you can do. Your motivation determines how much you are willing to do. Your attitude determines how well you do it. - Lou Holtz"
+            ];
+            let currentIndex = 0;
+            const quoteText = document.querySelector('.quote-text');
+
+            function showNextQuote() {
+                quoteText.classList.remove('active');
+                setTimeout(() => {
+                    quoteText.textContent = quotes[currentIndex];
+                    quoteText.classList.add('active');
+                    currentIndex = (currentIndex + 1) % quotes.length;
+                }, 500); // Wait for the fade-out transition to complete
+            }
+
+            quoteText.textContent = quotes[currentIndex]; // Show the first quote initially
+            quoteText.classList.add('active');
+            setInterval(showNextQuote, 4000); // Change quote every 4 seconds
+
+            // Dinosaur game code
+            const dino = document.getElementById('dino');
+            const obstacle = document.getElementById('obstacle');
+            const gameContainer = document.getElementById('game-container');
+            let isJumping = false;
+            let gravity = 0.9;
+
+            function jump() {
+                if (isJumping) return;
+                let position = 0;
+                isJumping = true;
+
+                let upInterval = setInterval(() => {
+                    if (position >= 150) {
+                        clearInterval(upInterval);
+
+                        let downInterval = setInterval(() => {
+                            if (position <= 0) {
+                                clearInterval(downInterval);
+                                isJumping = false;
+                            }
+                            position -= 5;
+                            position = position * gravity;
+                            dino.style.bottom = position + 'px';
+                        }, 20);
+                    }
+                    position += 30;
+                    position = position * gravity;
+                    dino.style.bottom = position + 'px';
+                }, 20);
+            }
+
+            gameContainer.addEventListener('click', jump);
+
+            function moveObstacle() {
+                let obstaclePosition = 600;
+                let timerId = setInterval(() => {
+                    if (obstaclePosition < 0) {
+                        clearInterval(timerId);
+                        obstacle.style.left = 600 + 'px';
+                        moveObstacle();
+                    }
+                    obstaclePosition -= 10;
+                    obstacle.style.left = obstaclePosition + 'px';
+                }, 20);
+            }
+
+            moveObstacle();
+        });
+    </script>
+</body>
+</html>
